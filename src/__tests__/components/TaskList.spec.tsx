@@ -129,4 +129,20 @@ describe("App Page", () => {
     expect(addedSecondTask).toBeInTheDocument();
     expect(addedSecondTask).not.toHaveClass("completed");
   });
+
+  it("should empty input field when a new task is added", () => {
+    render(<TaskList />);
+
+    const taskInput = screen.getByPlaceholderText("Adicionar novo todo");
+    const addTaskButton = screen.getByTestId("add-task-button");
+
+    fireEvent.change(taskInput, {
+      target: {
+        value: "Desafio ReactJS Ignite",
+      },
+    });
+    fireEvent.click(addTaskButton);
+
+    expect(taskInput).toHaveValue("");
+  })
 });
